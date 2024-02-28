@@ -7,7 +7,7 @@
 import { DataTypes } from "sequelize";
 
 // User schema
-export const userSchema = {
+export const user = {
   role: {
     type: DataTypes.STRING,
     allowNull: false,

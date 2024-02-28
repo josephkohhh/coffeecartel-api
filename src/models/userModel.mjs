@@ -6,10 +6,10 @@
  */
 
 import { sequelize } from "../config/db.mjs";
-import { userSchema } from "../schema/userSchema.mjs";
+import { user } from "../schema/user.mjs";
 
 // User Model
-export const UserModel = sequelize.define("User", userSchema);
+export const UserModel = sequelize.define("Users", user);
 
 /*
  * Note: 

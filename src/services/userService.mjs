@@ -5,6 +5,7 @@
  */
 
 import { hashPassword } from "../utils/hashPassword.mjs";
+import { comparePasswords } from "../utils/comparePasswords.mjs";
 import { UserModel } from "../models/userModel.mjs";
 
 // Function to register user
@@ -22,7 +23,7 @@ export const registerUser = async (
 
     // Create a new user record
     const newUser = await UserModel.create({
-      role: "admin", // Default role
+      role: "user", // Default role
       username: username,
       hashed_password: hashedPassword,
       fname: fname,
@@ -36,6 +37,34 @@ export const registerUser = async (
   } catch (error) {
     console.error("Error registering user:", error);
     throw new Error("Error registering user");
+  }
+};
+
+// Function to login user
+export const loginUser = async (username, password) => {
+  try {
+    const user = await UserModel.findOne({ where: { username } });
+
+    if (!user) return false; // User does not exist
+
+    // Admin
+    if (
+      user.role === "admin" &&
+      (await comparePasswords(user.hashed_password, password))
+    )
+      return user.role;
+
+    // User
+    if (
+      user.role === "user" &&
+      (await comparePasswords(user.hashed_password, password))
+    )
+      return user.role;
+
+    return false; // Wrong credentials
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw new Error("Error logging in");
   }
 };
 
