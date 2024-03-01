@@ -8,38 +8,6 @@ import { hashPassword } from "../utils/hashPassword.mjs";
 import { comparePasswords } from "../utils/comparePasswords.mjs";
 import { UserModel } from "../models/userModel.mjs";
 
-// Function to register user
-export const registerUser = async (
-  username,
-  password,
-  fname,
-  lname,
-  email,
-  address
-) => {
-  try {
-    // Hash password
-    const hashedPassword = await hashPassword(password);
-
-    // Create a new user record
-    const newUser = await UserModel.create({
-      role: "user", // Default role
-      username: username,
-      hashed_password: hashedPassword,
-      fname: fname,
-      lname: lname,
-      email: email,
-      address: address,
-    });
-
-    // Optionally, you can return the newly created user
-    return `${newUser.name} is created successfully`;
-  } catch (error) {
-    console.error("Error registering user:", error);
-    throw new Error("Error registering user");
-  }
-};
-
 // Function to login user
 export const loginUser = async (username, password) => {
   try {
@@ -65,6 +33,44 @@ export const loginUser = async (username, password) => {
   } catch (error) {
     console.error("Error logging in:", error);
     throw new Error("Error logging in");
+  }
+};
+
+// Function to register user
+export const registerUser = async (
+  username,
+  password,
+  fname,
+  lname,
+  email,
+  address
+) => {
+  try {
+    const hashedPassword = await hashPassword(password); // Hash password
+
+    // Create a new user record
+    await UserModel.create({
+      role: "user", // Default role
+      username: username,
+      hashed_password: hashedPassword,
+      fname: fname,
+      lname: lname,
+      email: email,
+      address: address,
+    });
+  } catch (error) {
+    // Handle uniqueness constraint violation
+    if (error.name === "SequelizeUniqueConstraintError") {
+      if (error.fields && error.fields.username) {
+        throw new Error("Username already exists");
+      } else if (error.fields && error.fields.email) {
+        throw new Error("Email already exists");
+      } else {
+        throw new Error("Username or email already exists");
+      }
+    }
+
+    throw new Error("Error registering user");
   }
 };
 
