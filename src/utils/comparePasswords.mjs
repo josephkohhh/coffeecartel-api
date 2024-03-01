@@ -11,7 +11,7 @@ export const comparePasswords = async (hashedPassword, password) => {
   try {
     return await bcrypt.compare(password, hashedPassword); // Use bcrypt to compare passwords
   } catch (error) {
-    console.error("Error comparing passwords:", error.message);
+    console.error("Error validating password:", error.message);
     throw error;
   }
 };
