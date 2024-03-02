@@ -11,7 +11,7 @@ import { UserModel } from "../models/userModel.mjs";
 // Function to login user
 export const loginUser = async (username, password) => {
   try {
-    const user = await UserModel.findOne({ where: { username } });
+    const user = await UserModel.findOne({ where: { username } }); // Query to find user
 
     if (!user) return false; // User does not exist
 
@@ -20,14 +20,14 @@ export const loginUser = async (username, password) => {
       user.role === "admin" &&
       (await comparePasswords(user.hashed_password, password))
     )
-      return user.role;
+      return user;
 
     // User
     if (
       user.role === "user" &&
       (await comparePasswords(user.hashed_password, password))
     )
-      return user.role;
+      return user;
 
     return false; // Wrong credentials
   } catch (error) {
