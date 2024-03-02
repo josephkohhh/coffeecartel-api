@@ -6,9 +6,10 @@ import { verifyToken } from "./middleware/verifyToken.mjs";
 
 const app = express(); // Create instance of express app
 
-const secretKey = "yourSecretKey"; // secretKey
+export const secretKey = "yourSecretKey"; // secretKey
 
-app.use(express.json()); // Register middleware to parse JSON bodies
+// Register middleware to parse JSON bodies
+app.use(express.json());
 
 // Register middleware to enable CORS
 app.use(
@@ -40,8 +41,8 @@ app.post("/login", async (req, res) => {
         status: 200,
         token,
         role: user.role,
-        firstname: user.firstname,
-        lastname: user.lastname,
+        firstname: user.fname,
+        lastname: user.lname,
         address: user.address,
       });
     }
@@ -92,8 +93,12 @@ app.post("/register", async (req, res) => {
 });
 
 // Admin protected request
-app.get("/protected", verifyToken, (req, res) => {
-  res.json({ message: "Protected route accessed successfully" }); // If token is valid, the user is authenticated
+app.get("/protected", verifyToken, async (req, res) => {
+  try {
+    res.json({ status: 200 }); // If token is valid, the user is authenticated
+  } catch (error) {
+    return res.json({ status: 500, error: errorMessage });
+  }
 });
 
 app.listen(3000, () => console.log(`Server started up listening on port 3000`));

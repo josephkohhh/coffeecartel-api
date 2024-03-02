@@ -6,6 +6,8 @@
 
 import jwt from "jsonwebtoken";
 
+import { secretKey } from "../index.mjs";
+
 // Middleware to verify JWT token
 export const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"];
