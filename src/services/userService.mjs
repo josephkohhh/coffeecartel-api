@@ -15,21 +15,13 @@ export const loginUser = async (username, password) => {
 
     if (!user) return false; // User does not exist
 
-    // Admin
-    if (
-      user.role === "admin" &&
-      (await comparePasswords(user.hashed_password, password))
-    )
-      return user;
+    const isMatch = await comparePasswords(user.hashed_password, password);
 
-    // User
-    if (
-      user.role === "user" &&
-      (await comparePasswords(user.hashed_password, password))
-    )
+    if (isMatch) {
       return user;
-
-    return false; // Wrong credentials
+    } else {
+      return false; // Wrong credentials
+    }
   } catch (error) {
     console.error("Error logging in:", error);
     throw new Error("Error logging in");
