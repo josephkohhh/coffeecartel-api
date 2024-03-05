@@ -17,8 +17,10 @@ app.use(
   })
 );
 
+const port = process.env.PORT || 3000;
+
 app.use(express.json()); // Register middleware to parse JSON bodies
 
 app.use(routes); // Register routers
 
-app.listen(3000, () => console.log(`Server started up listening on port 3000`));
+app.listen(port, () => console.log(`Server started up listening on port 3000`));
