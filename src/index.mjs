@@ -1,5 +1,5 @@
 /*
- * File: index.jsx
+ * File: index.mjs
  * Author: Joseph Koh
  * Description: Entry point for CoffeeCartel express API app
  */
@@ -9,12 +9,11 @@ import cors from "cors";
 import routes from "./routes/root.mjs";
 
 const app = express(); // Create instance of express app
-const whiteListUrl1 = process.env.WHITELIST_URL1;
 
 // Register middleware to enable CORS
 app.use(
   cors({
-    origin: whiteListUrl1,
+    origin: "http://localhost:5173",
   })
 );
 
