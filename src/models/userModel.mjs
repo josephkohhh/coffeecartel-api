@@ -8,7 +8,7 @@
 import { sequelize } from "../config/db.mjs";
 import { user } from "../schema/user.mjs";
 
-export const UserModel = sequelize.define("Users", user);
+export const UserModel = sequelize.define("users", user);
 // export const ProductModel = sequelize.define("Products", products);
 
 /*
