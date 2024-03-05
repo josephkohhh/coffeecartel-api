@@ -14,7 +14,7 @@ const whiteListUrl1 = process.env.WHITELIST_URL1;
 // Register middleware to enable CORS
 app.use(
   cors({
-    origin: whiteListUrl1,
+    origin: "http://localhost:3000",
   })
 );
 
