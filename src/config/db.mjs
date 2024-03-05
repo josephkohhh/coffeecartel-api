@@ -26,6 +26,7 @@ const databaseURL = process.env.DATABASE_URL;
 export const sequelize = new Sequelize(databaseURL, {
   dialectOptions: {
     ssl: {
+      require: true,
       rejectUnauthorized: true,
     },
   },
