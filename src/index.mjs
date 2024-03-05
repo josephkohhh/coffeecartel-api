@@ -1,5 +1,5 @@
 /*
- * File: index.jsx
+ * File: index.mjs
  * Author: Joseph Koh
  * Description: Entry point for CoffeeCartel express API app
  */

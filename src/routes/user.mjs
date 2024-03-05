@@ -109,9 +109,9 @@ router.post("/register", checkSchema(registerValidation), async (req, res) => {
     ) {
       errorMessage = error.message;
       return res.json({ status: 401, error: errorMessage });
+    } else {
+      return res.json({ status: 500, error: errorMessage });
     }
-
-    return res.json({ status: 500, error: errorMessage });
   }
 });
 

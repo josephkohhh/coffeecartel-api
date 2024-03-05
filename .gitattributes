@@ -1,0 +1,2 @@
+src/config/db.mjs -export-ignore
+src/index.mjs -export-ignore
