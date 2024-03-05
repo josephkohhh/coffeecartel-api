@@ -6,8 +6,14 @@
 
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize("coffeecarteldb", "root", "P@ssw0rd", {
-  host: "localhost", // Running on local
+const databaseName = process.env.DATABASE_NAME;
+const username = process.env.DATABASE_USERNAME;
+const password = process.env.DATABASE_PASSWORD;
+const host = process.env.DATABASE_HOST;
+// const databaseURL = process.env.DATABASE_URL;
+
+export const sequelize = new Sequelize(databaseName, username, password, {
+  host: host, // Running on Render web svc
   dialect: "mysql",
   dialectOptions: {
     ssl: {
@@ -21,6 +27,15 @@ export const sequelize = new Sequelize("coffeecarteldb", "root", "P@ssw0rd", {
   //   idle: 10000 // Max time that a connection can remain idle in the pool before being released
   // }
 });
+
+// export const sequelize = new Sequelize(databaseURL, {
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false,
+//     },
+//   },
+// });
 
 /*
  * Note: 
