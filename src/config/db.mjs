@@ -23,7 +23,13 @@ const databaseURL = process.env.DATABASE_URL;
 //   // }
 // });
 
-export const sequelize = new Sequelize(databaseURL);
+export const sequelize = new Sequelize(databaseURL, {
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: true,
+    },
+  },
+});
 
 /*
  * Note: 
