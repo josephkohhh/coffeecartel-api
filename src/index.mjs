@@ -9,11 +9,12 @@ import cors from "cors";
 import routes from "./routes/root.mjs";
 
 const app = express(); // Create instance of express app
+const whiteListUrl1 = process.env.WHITELIST_URL1;
 
 // Register middleware to enable CORS
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: whiteListUrl1,
   })
 );
 
@@ -23,4 +24,6 @@ app.use(express.json()); // Register middleware to parse JSON bodies
 
 app.use(routes); // Register routers
 
-app.listen(port, () => console.log(`Server started up listening on port 3000`));
+app.listen(port, () =>
+  console.log(`Server started up listening on port ${port}`)
+);
