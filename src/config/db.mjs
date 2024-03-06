@@ -11,8 +11,8 @@ const username = process.env.DATABASE_USERNAME;
 const password = process.env.DATABASE_PASSWORD;
 const host = process.env.DATABASE_HOST;
 
-export const sequelize = new Sequelize("coffeecarteldb", "root", "P@ssw0rd", {
-  host: "localhost", // Running on Render web svc
+export const sequelize = new Sequelize(databaseName, username, password, {
+  host: host, // Running on Render web svc
   dialect: "mysql",
   dialectOptions: {
     ssl: {
