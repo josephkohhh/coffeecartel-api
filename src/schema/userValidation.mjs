@@ -96,3 +96,30 @@ export const registerValidation = {
     },
   },
 };
+
+export const updateValidation = {
+  firstname: {
+    notEmpty: {
+      errorMessage: "First name cannot be empty",
+    },
+    isString: {
+      errorMessage: "First name must be string",
+    },
+  },
+  lastname: {
+    notEmpty: {
+      errorMessage: "First name cannot be empty",
+    },
+    isString: {
+      errorMessage: "First name must be string",
+    },
+  },
+  address: {
+    notEmpty: {
+      errorMessage: "Address cannot be empty",
+    },
+    isString: {
+      errorMessage: "Address must be string",
+    },
+  },
+};

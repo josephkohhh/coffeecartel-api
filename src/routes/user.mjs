@@ -5,16 +5,21 @@
  */
 
 import { Router } from "express";
-import { loginUser, registerUser } from "../services/userService.mjs";
+import {
+  loginUser,
+  registerUser,
+  updateUserProfile,
+} from "../services/userService.mjs";
 import { checkSchema, validationResult } from "express-validator";
 import {
   loginValidation,
   registerValidation,
+  updateValidation,
 } from "../schema/userValidation.mjs";
 import jwt from "jsonwebtoken";
 import { verifyToken } from "../middleware/verifyToken.mjs";
 
-export const secretKey = "yourSecretKey"; // secretKey
+export const secretKey = process.env.SECRET_KEY; // secretKey
 
 const router = Router(); // Create an instance of express router
 
@@ -42,8 +47,10 @@ router.post("/login", checkSchema(loginValidation), async (req, res) => {
     if (isValid) {
       const userData = {
         role: user.role,
+        username: user.username,
         fname: user.fname,
         lname: user.lname,
+        email: user.email,
         address: user.address,
       };
       const token = jwt.sign(userData, secretKey); // Generate JWT token
@@ -53,8 +60,10 @@ router.post("/login", checkSchema(loginValidation), async (req, res) => {
         token,
         user: {
           role: user.role,
+          username: user.username,
           fname: user.fname,
           lname: user.lname,
+          email: user.email,
           address: user.address,
         },
       });
@@ -123,5 +132,57 @@ router.get("/protected", verifyToken, async (req, res) => {
     return res.json({ status: 500, error: errorMessage });
   }
 });
+
+// Update profile request
+router.patch(
+  "/updateProfile",
+  checkSchema(updateValidation),
+  async (req, res) => {
+    try {
+      const validation = validationResult(req);
+
+      // If have validation errors, send back a response with the errors
+      if (!validation.isEmpty()) {
+        return res.json({
+          status: 400,
+          error: "Validation failed. Please check your inputs",
+        });
+      }
+
+      const { username, firstname, lastname, address } = req.body;
+
+      const user = await updateUserProfile(
+        username,
+        firstname,
+        lastname,
+        address
+      );
+      if (user) {
+        const userData = {
+          role: user.role,
+          username: user.username,
+          fname: user.fname,
+          lname: user.lname,
+          email: user.email,
+          address: user.address,
+        };
+        const token = jwt.sign(userData, secretKey); // Regenerate JWT token
+
+        // Success
+        return res.json({
+          status: 200,
+          msg: "Profile updated successfully",
+          token,
+          userData,
+        });
+      } else {
+        // Fail
+        return res.json({ status: 400, msg: "Profile update failed" }); // Success
+      }
+    } catch (error) {
+      return res.json({ status: 500, error: errorMessage });
+    }
+  }
+);
 
 export default router;
