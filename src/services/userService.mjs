@@ -66,6 +66,33 @@ export const registerUser = async (
   }
 };
 
+// Function to update user profile
+export const updateUserProfile = async (
+  username,
+  firstname,
+  lastname,
+  address
+) => {
+  try {
+    const user = await UserModel.findOne({ where: { username } }); // Query to find user // ....
+
+    if (user) {
+      user.fname = firstname;
+      user.lname = lastname;
+      user.address = address;
+
+      await user.save(); // Save the updated user profile
+
+      return user;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    throw new Error("Error updating profile");
+  }
+};
+
 /*
  * Note: 
    - UserModel.create() creates a new user record in the database
