@@ -63,7 +63,7 @@ coffeecartel-api
 
 ## Features
 
-- HTTP GET, POST & PATCH request
+- HTTP GET, POST & PATCH Requests
 - Sequelize ORM
 - JWT token
 - bcrypt Hashing Algorithm

@@ -19,7 +19,7 @@ import {
 import jwt from "jsonwebtoken";
 import { verifyToken } from "../middleware/verifyToken.mjs";
 
-export const secretKey = "yourSecretKey"; // secretKey
+export const secretKey = process.env.SECRET_KEY; // secretKey
 
 const router = Router(); // Create an instance of express router
 
