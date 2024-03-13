@@ -17,6 +17,11 @@ app.use(
     origin: whiteListUrl1,
   })
 );
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//   })
+// );
 
 const port = process.env.PORT || 3000;
 

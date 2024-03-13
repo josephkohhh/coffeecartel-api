@@ -1,5 +1,5 @@
 /*
- * File: userSchema.mjs
+ * File: user.mjs
  * Author: Joseph Koh
  * Description: Construct the user schema
  */
