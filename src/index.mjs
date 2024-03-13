@@ -12,9 +12,14 @@ const app = express(); // Create instance of express app
 const whiteListUrl1 = process.env.WHITELIST_URL1;
 
 // Register middleware to enable CORS
+// app.use(
+//   cors({
+//     origin: whiteListUrl1,
+//   })
+// );
 app.use(
   cors({
-    origin: whiteListUrl1,
+    origin: "http://localhost:5173",
   })
 );
 

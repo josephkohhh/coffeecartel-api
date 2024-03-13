@@ -11,8 +11,24 @@ const username = process.env.DATABASE_USERNAME;
 const password = process.env.DATABASE_PASSWORD;
 const host = process.env.DATABASE_HOST;
 
-export const sequelize = new Sequelize(databaseName, username, password, {
-  host: host, // Running on Render web svc
+// export const sequelize = new Sequelize(databaseName, username, password, {
+//   host: host, // Running on Render web svc
+//   dialect: "mysql",
+//   dialectOptions: {
+//     ssl: {
+//       rejectUnauthorized: false,
+//     },
+//   },
+//   // pool: {
+//   //   max: 10,
+//   //   min: 0,
+//   //   acquire: 30000, // Max time to wait for a connection from the pool
+//   //   idle: 10000 // Max time that a connection can remain idle in the pool before being released
+//   // }
+// });
+
+export const sequelize = new Sequelize("coffeecarteldb", "root", "P@ssw0rd", {
+  host: "localhost", // Running on Render web svc
   dialect: "mysql",
   dialectOptions: {
     ssl: {
@@ -26,15 +42,6 @@ export const sequelize = new Sequelize(databaseName, username, password, {
   //   idle: 10000 // Max time that a connection can remain idle in the pool before being released
   // }
 });
-
-// export const sequelize = new Sequelize(databaseURL, {
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//       rejectUnauthorized: false,
-//     },
-//   },
-// });
 
 /*
  * Note: 
