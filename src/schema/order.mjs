@@ -6,7 +6,7 @@
 
 import { DataTypes } from "sequelize";
 
-// User schema
+// Order schema
 export const order = {
   // Need to specify primary key if name is not prefix to 'id'
   order_id: {
@@ -39,7 +39,7 @@ export const order = {
     allowNull: false,
   },
   image: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   status: {

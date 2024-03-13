@@ -16,7 +16,7 @@ export const CreateOrder = async (cartList, username) => {
       description: i.desc,
       quantity: i.qty,
       amount: i.price,
-      total_amount: i.price * i.qty,
+      total_amount: i.price * i.qty + i.price * i.qty * 0.09,
       image: i.image,
       status: "pending",
     }));
@@ -24,5 +24,14 @@ export const CreateOrder = async (cartList, username) => {
     await OrderModel.bulkCreate(orderItems);
   } catch (error) {
     throw new Error("Error creating order", error);
+  }
+};
+
+// Function to fetch order
+export const GetOrder = async (username) => {
+  try {
+    return OrderModel.findAll({ where: { username } });
+  } catch (error) {
+    throw new Error("Error fetching order", error);
   }
 };
