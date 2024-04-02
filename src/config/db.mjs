@@ -14,11 +14,11 @@ const host = process.env.DATABASE_HOST;
 export const sequelize = new Sequelize(databaseName, username, password, {
   host: host, // Running on Render web svc
   dialect: "mysql",
-  dialectOptions: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  },
+  // dialectOptions: { // Remove ssl connection
+  //   ssl: {
+  //     rejectUnauthorized: false,
+  //   },
+  // },
   // pool: {
   //   max: 10,
   //   min: 0,
